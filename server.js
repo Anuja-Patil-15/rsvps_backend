@@ -8,7 +8,7 @@ const app = express();
 
 // Standard middleware for luxury web apps
 app.use(cors({
-  origin: 'https://rsvps-frontend-jade.vercel.app/', // Change this from 3000 to 5173
+  origin: 'https://rsvps-frontend-jade.vercel.app', // Change this from 3000 to 5173
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
