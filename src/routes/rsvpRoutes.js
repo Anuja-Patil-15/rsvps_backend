@@ -13,6 +13,6 @@ const router = Router();
  * @route   POST /api/rsvp/submit
  * @desc    Step 2: Save full details (Protected by JWT Cookie)
  */
-router.post('/submit', submitRSVP);
+router.post('/', submitRSVP);
 
 export default router;
