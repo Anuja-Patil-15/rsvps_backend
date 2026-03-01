@@ -1,25 +1,17 @@
 import { db } from '../../db/index.js';  // Adjust path to point to your db folder
 import { rsvps } from '../../db/schema.js';
 export const submitRSVP = async (req, res) => {
-  // 1. Get ALL data from req.body (No more req.user)
   const { 
-    name, 
-    email,
-    tableCompanion, 
-    dietary, 
-    liquor, 
-    children, 
-    brunch, 
-    tshirtSize 
+    name, email, tableCompanion, dietary, 
+    liquor, children, brunch, tshirtSize,
+    paymentId, paymentStatus // New fields from frontend
   } = req.body;
 
-  // 2. Simple validation
   if (!name || !email) {
     return res.status(400).json({ message: 'Name and email are required.' });
   }
 
   try {
-    // 3. Insert into PostgreSQL
     const newEntry = await db.insert(rsvps).values({
       name,
       email: email.toLowerCase(),
@@ -28,14 +20,15 @@ export const submitRSVP = async (req, res) => {
       liquor,
       children,
       brunch,
-      tshirtSize
+      tshirtSize,
+      paymentId,
+      paymentStatus: paymentStatus || 'pending'
     }).returning();
 
     return res.status(201).json({
-      message: 'RSVP submitted successfully!',
+      message: 'RSVP and Payment recorded successfully!',
       data: newEntry[0]
     });
-
   } catch (error) {
     console.error("Database Error:", error);
     if (error.code === '23505') {

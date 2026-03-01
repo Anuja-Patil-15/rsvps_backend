@@ -10,5 +10,8 @@ export const rsvps = pgTable('rsvps', {
   children: varchar('children', { length: 50 }),
   brunch: varchar('brunch', { length: 50 }).notNull(),
   tshirtSize: varchar('tshirt_size', { length: 10 }),
+  // --- ADDED COLUMNS ---
+  paymentStatus: varchar('payment_status', { length: 20 }).default('pending'), // 'pending' or 'success'
+  paymentId: varchar('payment_id', { length: 255 }), 
   createdAt: timestamp('created_at').defaultNow(),
 });
